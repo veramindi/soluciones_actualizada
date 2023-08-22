@@ -1,3 +1,0 @@
-RewriteBase /
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://solucionesintegralesjb.com/sistemas/facturacion/index.php$1 [R,L]
