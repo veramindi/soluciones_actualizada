@@ -6,9 +6,10 @@ require_once "../modelos/servicios-soporte.php";
 $soporte=new soporte();
 
 $idsoporte=isset($_POST["idsoporte"])? limpiarCadena($_POST["idsoporte"]):"";
-$idsoporten=isset($_POST["idsoporte"])? limpiarCadena($_POST["idsoporte"]):"";
 $idsoportepago=isset($_POST["idsoportepago"]) ? limpiarCadena(($_POST["idsoportepago"])):"";
 $codigo_soporte=isset($_POST["codigo_soporte"])? limpiarCadena($_POST["codigo_soporte"]):"";
+$idsoporten=isset($_POST["idsoporte"])? limpiarCadena($_POST["idsoporte"]):"";
+
 $nombre_cliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";//😀
 $telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
 $tecnico_respon=isset($_POST["idtecnico"])? limpiarCadena($_POST["idtecnico"]):"";

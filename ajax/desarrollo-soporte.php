@@ -11,6 +11,7 @@ $iddet_pag_desarrollo=isset($_POST["iddet_pag_desarrollo"]) ? limpiarCadena(($_P
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
 $fecha_ingreso=isset($_POST["fecha_ingreso"])? limpiarCadena($_POST["fecha_ingreso"]):"";
 $estado_servicio=isset($_POST["estado_servicio"])? limpiarCadena($_POST["estado_servicio"]):"";
+$estado_entrega=isset($_POST["estado_entrega"])? limpiarCadena($_POST["estado_entrega"]):"";
 $estado_pago=isset($_POST["estado_pago"])? limpiarCadena($_POST["estado_pago"]):"";
 $nombre_proyecto=isset($_POST["nombre_proyecto"])? limpiarCadena($_POST["nombre_proyecto"]):"";
 $costo_desarrollo=isset($_POST["costo_desarrollo"])? limpiarCadena($_POST["costo_desarrollo"]):"";
@@ -25,18 +26,15 @@ $idusuario=$_SESSION["idusuario"];
 switch ($_GET["op"]){
     case 'guardaryeditar':
       if(empty($iddesarrollo)){
-        $rspta=$desarrollo->insertar($idcliente,$idusuario,$fecha_ingreso,$estado_servicio,$estado_pago,$nombre_proyecto,$costo_desarrollo);
+        $rspta=$desarrollo->insertar($idcliente,$idusuario,$fecha_ingreso,$estado_servicio,$estado_entrega,$estado_pago,$nombre_proyecto,$costo_desarrollo);
         echo $rspta ? "Servicio Registrado" : "Servicio no se pudo registrar";
       }
       else {
         {
           $rspta=$desarrollo->editar(
             $iddesarrollo,
-            $fecha_ingreso,
-            $estado_servicio,
-            $estado_pago,
             $nombre_proyecto,
-            $costo_desarrollo 
+            $costo_desarrollo
           );
 
           echo $rspta ? "Servicio actualizada" : "Servicio no se pudo actualizar";
@@ -44,7 +42,7 @@ switch ($_GET["op"]){
     }
     break;
     case 'insertarPago':
-      $rspta = $desarrollo->insertarPagos($idcliente, $iddesarrollo, $idusuario, $fecha, $monto, $saldo, $tipo_pago);
+      $rspta = $desarrollo->insertarPagos($iddesarrollo,$fecha, $monto, $saldo, $tipo_pago);
       echo $rspta ? "Pago registrado" : "No se pudo registrar el pago";
       break;
 

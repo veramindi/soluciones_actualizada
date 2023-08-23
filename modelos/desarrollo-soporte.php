@@ -11,29 +11,26 @@ Class Desarrollo
 
   }
   //Implementamos metodo para insertar registro
-    public function insertar($idcliente,$idusuario,$fecha_ingreso,$estado_servicio,$estado_pago,$nombre_proyecto,$costo_desarrollo)
+    public function insertar($idcliente,$idusuario,$fecha_ingreso,$estado_servicio,$estado_entrega,$estado_pago,$nombre_proyecto,$costo_desarrollo)
     {
       $fecha_ingreso = date("Y-m-d"); // Obtener la fecha y hora actual
-      $sql="INSERT INTO desarrollo (idcliente,idusuario,fecha_ingreso,codigo_desarrollo,estado_servicio,estado_entrega,estado_pago,garantia_desarrollo,nombre_proyecto,costo_desarrollo)
-      VALUES ('$idcliente','$idusuario','$fecha_ingreso','$estado_servicio','$estado_pago','$nombre_proyecto','$costo_desarrollo')";
+      $sql="INSERT INTO desarrollo (idcliente,idusuario,fecha_ingreso,estado_servicio,estado_entrega,estado_pago,nombre_proyecto,costo_desarrollo)
+      VALUES ('$idcliente','$idusuario','$fecha_ingreso','$estado_servicio','$estado_entrega','$estado_pago','$nombre_proyecto','$costo_desarrollo')";
      return ejecutarConsulta($sql);
    }
     //Implementamos un metodo para editar registro
-    public function editar($iddesarrollo,$fecha_ingreso,$estado_servicio,$estado_pago,$nombre_proyecto,$costo_desarrollo)
+    public function editar($iddesarrollo,$nombre_proyecto,$costo_desarrollo)
     {
       $sql="UPDATE desarrollo SET 
-      fecha_ingreso='$fecha_ingreso',
-      estado_servicio='$estado_servicio',
-      estado_pago='$estado_pago',
       nombre_proyecto='$nombre_proyecto',
       costo_desarrollo='$costo_desarrollo',
       WHERE iddesarrollo='$iddesarrollo'";
       return ejecutarConsulta($sql);
       //var_dump($iddesarrollo);
   }
-  public function insertarPagos($idcliente, $iddesarrollo, $idusuario, $fecha, $monto, $saldo, $tipo_pago) {
-    $sql_pago = "INSERT INTO det_pag_desarrollo (idcliente, iddesarrollo, idusuario, fecha, monto, saldo, tipo_pago)
-                 VALUES ('$idcliente', '$iddesarrollo', '$idusuario', '$fecha', '$monto', '$saldo', '$tipo_pago')";
+  public function insertarPagos($iddesarrollo,$fecha, $monto, $saldo, $tipo_pago) {
+    $sql_pago = "INSERT INTO det_pag_desarrollo (iddesarrollo,fecha,monto,saldo, tipo_pago)
+                 VALUES ('$iddesarrollo','$fecha', '$monto', '$saldo', '$tipo_pago')";
     
     return ejecutarConsulta($sql_pago);
 }
