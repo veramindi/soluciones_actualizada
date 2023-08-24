@@ -9,6 +9,8 @@ $desarrollo=new Desarrollo();
 $iddesarrollo=isset($_POST["iddesarrollo"])? limpiarCadena($_POST["iddesarrollo"]):"";
 $iddet_pag_desarrollo=isset($_POST["iddet_pag_desarrollo"]) ? limpiarCadena(($_POST["iddet_pag_desarrollo"])):"";
 $idcliente=isset($_POST["idcliente"])? limpiarCadena($_POST["idcliente"]):"";
+$idintegrant_desarrollo=isset($_POST["idintegrant_desarrollo"])? limpiarCadena($_POST["idintegrant_desarrollo"]):"";
+$nombre_integrantes=isset($_POST["nombre_integrantes"])? limpiarCadena($_POST["nombre_integrantes"]):"";
 $fecha_ingreso=isset($_POST["fecha_ingreso"])? limpiarCadena($_POST["fecha_ingreso"]):"";
 $estado_servicio=isset($_POST["estado_servicio"])? limpiarCadena($_POST["estado_servicio"]):"";
 $estado_entrega=isset($_POST["estado_entrega"])? limpiarCadena($_POST["estado_entrega"]):"";
@@ -33,6 +35,10 @@ switch ($_GET["op"]){
         {
           $rspta=$desarrollo->editar(
             $iddesarrollo,
+            $idcliente,
+            $estado_servicio,
+            $estado_entrega,
+            $estado_pago,
             $nombre_proyecto,
             $costo_desarrollo
           );
@@ -44,7 +50,26 @@ switch ($_GET["op"]){
     case 'insertarPago':
       $rspta = $desarrollo->insertarPagos($iddesarrollo,$fecha, $monto, $saldo, $tipo_pago);
       echo $rspta ? "Pago registrado" : "No se pudo registrar el pago";
-      break;
+    break;
+    
+    case 'insertarIntegrante':
+      $rspta = $desarrollo->insertarIntegrantes($iddesarrollo,$nombre_integrantes);
+      echo $rspta ? "Integrante registrado" : "No se pudo registrarel integrante";
+    break;
+    /*case 'insertarIntegrante':
+      $integrantesArray = $_POST['integrantes'];
+      $iddesarrollo = $_POST['iddesarrollo'];
+  
+      foreach ($integrantesArray as $nombre_integrantes) {
+          $rspta = $desarrollo->insertarIntegrantes($iddesarrollo, $nombre_integrantes);
+          if (!$rspta) {
+              echo "No se pudo registrar los integrantes";
+              exit; // Salir del bucle si ocurre un error
+          }
+      }
+  
+      echo "Integrantes registrados";
+      break;*/
 
 
     case 'mostrar':
@@ -71,7 +96,9 @@ switch ($_GET["op"]){
       $cliente = new Persona();
       $rspta=$cliente->mostrar($idcliente);
        echo json_encode($rspta);
+  
     break;
+
     case 'selectIntegrante':
       require_once "../modelos/Integrantes_desarrollo.php";
       $integrante= new Integrantes();
@@ -101,7 +128,7 @@ switch ($_GET["op"]){
 
           "1"=>$reg->fecha_ingreso,
           "2"=>$reg->fecha_ingreso,              
-          "3"=>$reg->cliente,
+          "3"=>$reg->nombre,
           "4"=>$reg->nombre_proyecto
         );
       }

@@ -65,17 +65,17 @@ else {
               <div class="panel-body" style="height:100%;" id="formularioregistros">
                 <!--Formulario-->
 <form name="formulario" method="POST" id="formulario">  
-&nbsp;&nbsp;&nbsp;&nbsp;<label>Datos del Cliente</label>
-                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 ">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<label>Cliente:</label>
-                    <span id="nomcliente"></span>
-                  <br>
-                  <div class="form-group col-lg-4 col-md-2 col-sm-2 col-xs-12" id="select">                        
-              <input type="hidden" name="iddesarrollo" id="iddesarrollo" value="">
-              <input type="hidden" name="iddet_pag_desarrollo" id="iddet_pag_desarrollo" value="">
-              <select id="idcliente" name="idcliente" class="form-control selectpicker" data-live-search="true" required data-style="btn-default" title="Razón social" hidden>
-              </select>
-            </div>
+<div id="colorin">
+&nbsp;&nbsp;&nbsp;&nbsp;<label>Datos del Cliente</label> </div>
+                  <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                    <div class="form-group col-lg-3 col-md-5 col-sm-5 col-xs-12" id="select">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<label>Nombre Cliente:</label>
+                    <input type="hidden" name="iddesarrollo" id="iddesarrollo" value="">
+                    <input type="hidden" name="iddet_pag_desarrollo" id="iddet_pag_desarrollo" value="">
+                      <select id="idcliente" name="idcliente" class="form-control selectpicker" data-live-search="true"  data-style="btn-default"   hidden>
+                      </select>
+
+                    </div>
                           <div id="invisible">
             <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
             <label>Nº : documento</label>
@@ -85,7 +85,7 @@ else {
                     <label>Dirección:</label>
                     <input type="text" class="form-control" name="direccioncliente" id="direccioncliente"  placeholder="Direccion">
                   </div>
-                  <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12"> 
+                  <div class="form-group col-lg-3 col-md-2 col-sm-2 col-xs-12"> 
                     <label>Teléfono:</label>
                     <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono">
                   </div>
@@ -95,7 +95,8 @@ else {
                     <label>Nombre Proyecto:</label>
                     <input type="text" class="form-control" name="nombre_proyecto" id="nombre_proyecto"  placeholder="Nompre del proyecto">
                   </div>
-
+                  </div>
+                  
                   <div class="modal-body" id="cuotasdepago" >
                       <div class="col-lg-6">
                         <table id="tblpagos">
@@ -112,8 +113,10 @@ else {
 </div> 
 
 <style>
-   #btnagregar{
+   #btnagregar,
+   #btnagregarInter{
    background: #19A7CE;
+   cursor: pointer;
   }
   .cerrarVentana{
     width: 24px;
@@ -122,13 +125,13 @@ else {
     font-size: 20px;
     color: white;
     text-align: center;
-    border-radius: 5px 1px;
+    border-radius: 5px 1px; 
 
   }
 
 </style>
 
-                </div>
+                
                 <div id="formu">
                   <div class="col-lg-12">
                     <label>Estado</label><br> 
@@ -182,7 +185,7 @@ else {
                        <select id="idintegrant_desarrollo" name="idintegrant_desarrollo" class="form-control selectpicker" data-live-search="true" data-style="btn-default" title="Integrantes">
                        
                        </select>
-                       <input type="button" onclick="mostrarVentana()" value="+" id="btnagregar" style="margin-left: 5px;">
+                         <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;">
                       </div>
                       </div> 
                 </div>
@@ -191,7 +194,38 @@ else {
 
                 <div class="col-lg-12 form-inline">
 </div>
-  <!-- Form elements here -->
+<div id="ventanita" class="ventana-emergente">
+<div class="contenido-ventana">
+<span class="cerrarVentana" onclick="cierraVentanitaEmergente()">X</span>
+<h3 class="titulo-ventana" >Ingrese a los integantes para este proyecto:</h3>
+<table>
+    <tr>
+      <th>Nombre</th>
+      <th ><input type="text" name="integrantes1" id="integrantes1"></th>
+    </tr>
+   <!-- <tr>
+       <th>Nombre</th>
+      <th ><input type="text" name="integrantes2" id="integrantes2"></th>
+    </tr>
+    <tr>
+      <th>Nombre</th>
+      <th ><input type="text" name="integrantes3" id="integrantes3"></th>
+    </tr>
+    <tr>
+      <th>Nombre</th>
+      <th ><input type="text" name="integrantes4" id="integrantes4"></th>
+    </tr>
+    <tr>
+      <th>Nombre</th>
+      <th ><input type="text" name="integrantes5" id="integrantes5"></th>
+    </tr> -->
+  </table>
+  <div class="boton-container">
+    <button type="button" id="btnguardarIntegrantes" onclick="guardarIntegrantes()">Guardar</button>
+  </div>
+  <input type="hidden" name="idintegrant_desarrollo" value="">
+</div>
+</div>
 
 
                 

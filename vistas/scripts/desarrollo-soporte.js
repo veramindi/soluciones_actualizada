@@ -36,7 +36,7 @@ function rellenarCliente(){//😀
 
 	var cliente=$("#iddesarrollo").prop("selected",true);
 	if(cliente){
-		$.post("../ajax/cotizacion.php?op=mostrarDatoCliente",{idcliente : idcliente},function(data){
+		$.post("../ajax/desarrollo-soporte.php?op=mostrarDatoCliente",{idcliente : idcliente},function(data){
 			data = JSON.parse(data);
       $("#num_documento").val(data.num_documento);
       $("#telefono").val(data.telefono);
@@ -65,22 +65,28 @@ function limpiar() {
      
   }
   // funcion para habilitar los campos de los datos del cliente
-  function offdisabled(){
-      const myDiv = document.getElementById('select');
-      myDiv.hidden = false;
-      $("#nomcliente").hide();
-  }
+
 
 var i=0;
 var detalles=0;
 
-function mostrarVentana() {
+function mostrarVentana(iddesarrollo) {
     $('#ventanaEmergente').show();
+    console.log(iddesarrollo);
   }
+  
+function vizualizarVentana(iddesarrollo) {
+  $('#ventanita').show();
+  console.log(iddesarrollo);
+}
   
   
   function cerrarVentanaEmergente() {
     document.getElementById('ventanaEmergente').style.display = 'none';
+    
+  }
+  function cierraVentanitaEmergente() {
+    document.getElementById('ventanita').style.display = 'none';
     
   }
   
@@ -133,7 +139,76 @@ function mostrarVentana() {
       
   }
 
+    function guardarIntegrantes() {
+      var integrante1 = document.getElementById('integrantes1').value;
+      //var integrante2 = document.getElementById('integrantes2').value;
+      //var integrante3 = document.getElementById('integrantes3').value;
+      //var integrante4 = document.getElementById('integrantes4').value;
+      //var integrante5 = document.getElementById('integrantes5').value;
+      var idcliente = document.getElementById('idcliente').value;
+      var iddesarrollo = document.getElementById('iddesarrollo').value;
+      
+      if (integrante1.trim() === '') {
+        swal({
+          title: "Error",
+          text: "¡" + "El nombre del integrante no puede estar vacío." + "!",
+          type: "warning",
+          confirmButtonText: "Cerrar",
+          closeOnConfirm: true
+        });
+        return; // Exit the function if the input is empty
+      }
+      $.ajax({
+        url: '../ajax/desarrollo-soporte.php?op=insertarIntegrante',
+        method: 'POST',
+         data: {
+            nombre_integrantes:integrante1,
+            idcliente: idcliente,
+            iddesarrollo: iddesarrollo
+        },
+      
+        /*data: {
+            integrantes: [integrante1, integrante2, integrante3, integrante4, integrante5],
+            idcliente: idcliente,
+            iddesarrollo: iddesarrollo
+        },
+        */
+        success: function(datos) {
+          if (datos !== "" && datos !== null) { // Fixed condition here
+            swal({
+              title:"Integrantes Registrados", // Fixed typo "integrantes"
+              text: "¡" + datos + "!",
+              type: "success",
+              confirmButtonText: "Cerrar",
+              closeOnConfirm: true
+            });
+          } else {
+            swal({
+              title: "Error",
+              text: "Ocurrió un error. Por favor, intenta registrar de nuevo.",
+              type: "warning",
+              confirmButtonText: "Cerrar",
+              closeOnConfirm: true
+            });
+          }
+          //mostrarIntegrante(iddesarrollo);
+        },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseText);
+          console.log(status);
+          console.log(error);
+          alert("Hubo un error en la solicitud AJAX. Consulta la consola para más detalles.");
+        }
+      });
+   
+  cierraVentanitaEmergente();
+  document.getElementById('integrantes1').value = '';
+ // document.getElementById('integrantes2').value = '';
+  //document.getElementById('integrantes3').value = '';
+  //document.getElementById('integrantes4').value = '';
+  //document.getElementById('integrantes5').value = '';
 
+}  
   function guardarPagos() {
     // Obtener los valores de los campos de entrada dentro de la ventana emergente
     var fecha = document.getElementById('fecha').value;
@@ -200,6 +275,7 @@ function mostrarVentana() {
 
  // Cerrar la ventana emergente después de guardar los datos
   cerrarVentanaEmergente();
+
   
   // Limpiar los campos dentro de la ventana emergente
   document.getElementById('fecha').value = '';
@@ -211,7 +287,8 @@ function mostrarVentana() {
 }
 function mostrarform(flag)
 {
-  offdisabled()
+
+  $("#idcliente").show();
   $("#colorin").show();
   $("#invisible").show();
   $("#formu").show();
@@ -311,9 +388,11 @@ function mostrar(iddesarrollo)
     data=JSON.parse(data);
     mostrarform(true);
 
-   // $("#idcliente").val(data.nombre_cliente);
-  //  $("#idcliente").selectpicker('refresh');
-
+    $("#idcliente").hide();
+    $("#idcliente").val(data.nombre);//😂
+    $("#idcliente").html('<option selected="selected">' + data.nombre + '</option>');
+    $("#idcliente").selectpicker('refresh');
+    
     $("#colorin").hide();
     $("#invisible").hide();
     $("#formu").hide();
@@ -321,20 +400,26 @@ function mostrar(iddesarrollo)
     $("#idintegrant_desarrollo").val(data.nombre_integrantes);
     $("#idintegrant_desarrollo").selectpicker('refresh');//😂
 
+    $("#num_documento").val(data.num_documento);
+    $("#num_documento").prop("readonly", true);//para que no se pueda editar
+    $("#direccioncliente").val(data.direccion);
+    $("#direccioncliente").prop("readonly", true);//para que no se pueda editar
+
+    $("#telefono").val(data.telefono);
+    $("#telefono").prop("readonly", true);//para que no se pueda editar
+
+    $("#estado_servicio").val(data.estado_servicio);
+    $("#estado_pago").val(data.estado_pago);
+    $("#estado_entrega").val(data.estado_entrega);
     $("#iddesarrollo").val(data.iddesarrollo);
+    
     $("#costo_desarrollo").val(data.costo_desarrollo);
     total=$("#costo_desarrollo").val();
-
-    $("#nombre_proyecto").val(data.nombre_proyecto);
+    $("#nombre_proyecto").val(data.nombre_proyecto);//😂
     $("#cuotasdepago").show();
+    $("#fecha").val(data.fecha);
     $("#iddet_pag_desarrollo").val(data.iddet_pag_desarrollo);
     //$("#idtecnico").val(data.nombre);
-    var nombreCliente = $("#idcliente option:selected").text();
-    $("#nomcliente").text(nombreCliente);
-    $("#nomcliente").show();
-    const myDiv = document.getElementById('select');
-    myDiv.hidden = true;
-
 
 
 })
@@ -342,20 +427,7 @@ mostrarPagos(iddesarrollo);
 
 }
 
-function eliminar(codigo_desarrollo)
-{
 
-  bootbox.confirm("Esta seguro eliminar el cliente",function(result)
-{
-  if(result)
-  {
-    $.post("../ajax/desarrollo-soporte.php?op=eliminar",{codigo_desarrollo:codigo_desarrollo},function(e){
-      bootbox.alert(e);
-        tabla.ajax.reload();
-    });
-  }
-})
-}
 //let total = $("#total").val();
 $(function () {
   //let total = $("#total");
@@ -378,7 +450,6 @@ function costoServicio(){
   //console.log("total fuera de la función:", total);
     let monto = $("#monto").val();
     let saldo;
-  
     if (ultimoSaldo >0) {
       saldo = ultimoSaldo - monto;
       $("#saldo").val(saldo);

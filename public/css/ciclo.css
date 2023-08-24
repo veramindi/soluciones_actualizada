@@ -6,8 +6,11 @@
     margin-bottom: 20px;
     background-color: #fff;
     overflow: auto;
-  
-   
+
+  }
+  #tblpagos{
+    width: 100%;
+    height: 20px;
   }
 
   .box-header {
@@ -137,7 +140,7 @@ z-index: 9999;
 }
 
 
-#btnguardarpagos {
+#btnguardarpagos,#btnguardarIntegrantes {
 margin-top: 5px;
 margin-left:45%;
 }
