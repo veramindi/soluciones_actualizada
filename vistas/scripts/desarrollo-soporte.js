@@ -89,36 +89,46 @@ function vizualizarVentana(iddesarrollo) {
     document.getElementById('ventanita').style.display = 'none';
     
   }
-  
+
+
   //Variable para almacenar el ultimo saldo
-  var ultimoSaldo = 0; 
-  function mostrarintegrantes(iddesarrollo) {
+  var ultimoSaldo = 0;
+
+  function mostrarIntegrantes(iddesarrollo) {
+
     $.ajax({
-      url: "../ajax/desarrollo-soporte.php?op=mostrarIntegrantes&iddesarrollo=" + iddesarrollo,
+      url: "../ajax/desarrollo-soporte.php?op=ListarIntegrante&iddesarrollo=" + iddesarrollo,
       type: "POST",
       dataType: "json",
       success: function(data) {
-        $('#mostrarintegrantes').empty(); // limpiar la tabla antes de agregar nuevas filas
-        
+     
+        $('#listarIntegrantes').empty(); // limpiar la tabla antes de agregar nuevas filas
+  
         var filaCabecera = '<tr>' +
-          '<th>Nombre &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;"></th>' +
-          '<th>';
-        $('#mostrarintegrantes').append(filaCabecera);
+        '<th> Lista  de los  Integrantes </th>' +
         
-        for (var i = 0; i < data.length; i++) {
-          var fila = '<tr class="fila">' +
-              '<td>' + data[i].nombre_integrantes + '</td>' +
-              '</tr>';
-          $('#mostrarintegrantes').append(fila);
-        }      
+        '</tr>';
+        $('#listarIntegrantes').append(filaCabecera);
+  
+        for (var i = 0; i < data.aaData.length; i++) {
+         // console.log(data.aaData[i]);
+          var fila = '<tr class="filas">' +
+            '<td>' + data.aaData[i][0] + '</td>' +
+           
+            '</tr>';
+          $('#listarIntegrantes').append(fila);
+  
+        
+        }
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log("Error en la petición AJAX: " + textStatus + " - " + errorThrown);
         console.log(jqXHR.responseText);
       }
     });
-}
-
+      
+  }
+  
   //aqui
   function mostrarPagos(iddesarrollo) {
     //console.log("Hola mostrarPagos")
@@ -218,7 +228,7 @@ function vizualizarVentana(iddesarrollo) {
               closeOnConfirm: true
             });
           }
-          //mostrarIntegrante(iddesarrollo);
+          mostrarIntegrantes(iddesarrollo);
         },
         error: function(xhr, status, error) {
           console.log(xhr.responseText);
@@ -319,7 +329,9 @@ function mostrarform(flag)
   $("#colorin").show();
   $("#invisible").show();
   $("#formu").show();
-  $("#livia").show();
+  $("#loqui").hide();
+
+  $("#integran").show();
     $("#cuotasdepago").hide();
     $("#totalIntegrantes").hide();
 
@@ -428,6 +440,8 @@ function edit(iddesarrollo)
     $("#colorin").hide();
     $("#invisible").hide();
     $("#formu").hide();
+    $("#integran").hide();
+    $("#loqui").hide();
 
     $("#num_documento").val(data.num_documento);
     $("#num_documento").prop("readonly", true);//para que no se pueda editar
@@ -453,7 +467,7 @@ function edit(iddesarrollo)
 
 
 })
-
+mostrarIntegrantes(iddesarrollo);
 
 }
 //variable para almacenar el valor del total
@@ -474,7 +488,8 @@ function mostrar(iddesarrollo)
     $("#colorin").hide();
     $("#invisible").hide();
     $("#formu").hide();
-    $("#livia").hide();
+    $("#integran").hide();
+    $("#loqui").show();
     $("#idintegrant_desarrollo").val(data.nombre_integrantes);
     $("#idintegrant_desarrollo").selectpicker('refresh');//😂
 
@@ -504,6 +519,7 @@ function mostrar(iddesarrollo)
 
 })
 mostrarPagos(iddesarrollo);
+
 
 }
 

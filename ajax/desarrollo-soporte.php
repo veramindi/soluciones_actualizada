@@ -53,6 +53,10 @@ switch ($_GET["op"]){
     break;
     
     case 'insertarIntegrante':
+      $rspta = $desarrollo->EditarIntegrante($nombre_integrantes);
+      echo $rspta ? "Integrante registrado" : "No se pudo registrarel integrante";
+    break;
+    case 'i':
       $rspta = $desarrollo->insertarIntegrantes($iddesarrollo,$nombre_integrantes);
       echo $rspta ? "Integrante registrado" : "No se pudo registrarel integrante";
     break;
@@ -70,7 +74,7 @@ switch ($_GET["op"]){
   
       echo "Integrantes registrados";
       break;*/
-
+      
 
     case 'mostrar':
       $rspta=$desarrollo->mostrar($iddesarrollo);
@@ -178,7 +182,7 @@ $results = array(
 echo json_encode($results);
   break;
 
-case 'mostrarIntegrantes':
+case 'ListarIntegrante':
   $iddesarrollo = $_REQUEST["iddesarrollo"];
   $rspta=$desarrollo->mostrarIntegrantes($iddesarrollo);
  // var_dump($rspta); // Imprimir el objeto para verificar que haya datos
@@ -189,7 +193,7 @@ $data= Array();
 while ($reg=$rspta->fetch_object()){
     $data[]=array(
         "0"=>$reg->nombre_integrantes,
-        "1"=>$reg->iddet_pag_desarrollo
+        "1"=>$reg->idintegrant_desarrollo 
     );
 }
 

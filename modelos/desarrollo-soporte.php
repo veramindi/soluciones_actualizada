@@ -44,6 +44,20 @@ Class Desarrollo
     
     return ejecutarConsulta($sql_pago);
 }
+public function EditarIntegrante($nombre_integrantes) {
+  // Obtener el último ID de desarrollo insertado
+  $sql_last_id = "SELECT MAX(iddesarrollo) AS max_id FROM desarrollo";
+  $result = ejecutarConsulta($sql_last_id);
+  $row = mysqli_fetch_assoc($result);
+  $ultimo_id = $row['max_id'];
+  // Incrementar el último ID para obtener el nuevo ID de desarrollo
+  $nuevo_id = $ultimo_id + 1;
+  // Insertar el nuevo integrante con el nuevo ID de desarrollo
+  $sql_insert = "INSERT INTO integrantes_desarrollo (iddesarrollo, nombre_integrantes)
+                 VALUES ('$nuevo_id', '$nombre_integrantes')";
+
+  return ejecutarConsulta($sql_insert);
+}
 public function insertarIntegrantes($iddesarrollo,$nombre_integrantes) {
   $sql= "INSERT INTO integrantes_desarrollo (iddesarrollo,nombre_integrantes)
                VALUES ('$iddesarrollo','$nombre_integrantes')";
@@ -58,7 +72,8 @@ public function insertarIntegrantes($iddesarrollo,$nombre_integrantes) {
         $sql = "SELECT iddesarrollo, nombre_integrantes, idintegrant_desarrollo FROM integrantes_desarrollo WHERE iddesarrollo = '$iddesarrollo'";
         return ejecutarConsulta($sql);
     }
-    
+
+
    
    
       //Implementamos un metodo para mostrar los datos de un registro a modificar

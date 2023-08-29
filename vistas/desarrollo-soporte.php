@@ -101,6 +101,12 @@ else {
                     <label>Nombre Proyecto:</label>
                     <input type="text" class="form-control" name="nombre_proyecto" id="nombre_proyecto"  placeholder="Nompre del proyecto">
                   </div>
+                  <div id="loqui">
+                  <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12 "> 
+                    <label>Cuotas Restantes:</label>
+                    <input type="text" class="form-control" name="saldo" id="saldo"  readonly>
+                  </div>
+                  </div>
                   </div>
                   
                   <div class="modal-body" id="cuotasdepago" >
@@ -168,48 +174,51 @@ else {
                         </select>
                       </div> 
                     </div> 
-                   
-
+                    </div>
+                    </div>
                   <!-- inicio -->
+                  <div id="integran">
                   <div class="col-lg-12  form-inline">
                     <div class="form-group col-lg-3 col-md-2 col-sm-2 col-xs-12 ">
                     <label>Costo del Desarrollo</label> <br>
                     <p>Total: S/  <input type="numer" class="form-control" name="costo_desarrollo" id="costo_desarrollo" maxlength="50" ></p>
                   <br>
                   </div>
-                  </div>
-                  </div>
-                  </div>
+                  
+                  
+                  
                  <!-- <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <p>A Cuenta S/ <input type="numer" class="form-control" name="cuota" id="cuota" maxlength="50"></p>
                       </div> -->
                       <!-- <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
                       <p>Saldo S/ <input type="numer" class="form-control" name="saldo" id="saldo" maxlength="50" readonly></p>
                       </div> -->
-                      <div id="livia">
+                      
                       <div class="form-group col-lg-4 col-md-2 col-sm-2 col-xs-1" >
                       
                          <label>Integrantes:</label>
                          <div class="col-lg-12 " style="display: flex; align-items: center"> 
-                       <select id="idintegrant_desarrollo" name="idintegrant_desarrollo" class="form-control selectpicker" data-live-search="true" data-style="btn-default" title="Integrantes">
-                
+                         <button>Agregar Integrantes</button>
+                       <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;">
                        </select>
-                         <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;">
+                         
                       </div>
                       </div>
                       </div> 
+                      </div>
                        <div class="modal-body" id="totalIntegrantes" >
                       <div class="col-lg-6">
-                        <table id="mostrarintegrantes">
-                          <!-- Cabecera 4 datos -->
+                        <table id="listarIntegrantes">
+
                           <tr>
-                            <th>Nombre </th>
-                           
+                              <th>Lista  de los  Integrantes</th>
+                             
                           </tr>
                         </table>
                         <div> <br><br></div>
                     </div>
 </div> 
+
                       
                 
                 
@@ -218,33 +227,19 @@ else {
                 <div class="col-lg-12 form-inline">
 </div>
 <div id="ventanita" class="ventana-emergente">
+
 <div class="contenido-ventana">
+
 <span class="cerrarVentana" onclick="cierraVentanitaEmergente()">X</span>
-<h3 class="titulo-ventana" >Ingrese a los integantes para este proyecto:</h3>
+<h3 class="titulo-ventana">Ingrese nombre del Integrante:</h3>
 <table  id="integrantes">
-    <tr>
-      <th>Nombre</th>
-      </tr>
-    <tr>
-    <td ><input type="text" name="integrantes1" id="integrantes1"></td>
-    </tr>
+            <tr>
+                <th> Nombre </th>
+                <th><input type="text" name="integrantes1" id="integrantes1"></th>
+            </tr>
     
-   <!-- <tr>
-       <th>Nombre</th>
-      <th ><input type="text" name="integrantes2" id="integrantes2"></th>
     </tr>
-    <tr>
-      <th>Nombre</th>
-      <th ><input type="text" name="integrantes3" id="integrantes3"></th>
-    </tr>
-    <tr>
-      <th>Nombre</th>
-      <th ><input type="text" name="integrantes4" id="integrantes4"></th>
-    </tr>
-    <tr>
-      <th>Nombre</th>
-      <th ><input type="text" name="integrantes5" id="integrantes5"></th>
-    </tr> -->
+  
   </table>
   <div class="boton-container">
     <button type="button" id="btnguardarIntegrantes" onclick="guardarIntegrantes()">Guardar</button>
@@ -252,6 +247,14 @@ else {
   <input type="hidden" name="idintegrant_desarrollo" value="">
 </div>
 </div>
+
+    <style>
+  #listarIntegrantes {
+    width: 100%;
+    /* Otros estilos que tengas para la tabla */
+  }
+  
+</style> 
 
 
                 
@@ -293,10 +296,10 @@ else {
 </div>
 
 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-success" type="submit" id="btnGuardar"><i class="fa fa-save"> </i>&nbsp;&nbsp; Guardar</button>
-                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> &nbsp;&nbsp;Cancelar</button>
-
-                        </div>
+            <br>
+            <button class="btn btn-success" type="submit" id="btnGuardar"><i class="fa fa-save"></i>&nbsp;&nbsp; Guardar</button>
+            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> &nbsp;&nbsp;Cancelar</button>
+          </div>
 
                 <!-- <button  type="submit" id="btnGuardar"><i class="login-form-btn"></i>&nbsp;&nbsp; Guardar</button>
             <button class="btn btn-danger " onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> &nbsp;&nbsp;Cancelar</button>
@@ -327,6 +330,7 @@ require 'footer.php';
 <link rel="stylesheet" type="text/css" href="../public/css/ciclo.css">
 <script type="text/javascript" src="scripts/desarrollo-soporte.js">
 </script>
+
 <?php
 }
 ob_end_flush();
