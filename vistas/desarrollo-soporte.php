@@ -44,7 +44,10 @@ else {
                     <th>Fecha Ingreso</th>
                     <th>Fecha entrega</th> 
                     <th style="width: 20%">Nombre Cliente</th>
+                    <th>Estado servicio</th>
+                    <th>Estado pago</th>
                     <th>Nombre proyecto</th>
+                    <th>Saldo a pagar</th>
                                
                   </thead>
                   <tbody>
@@ -55,7 +58,10 @@ else {
                     <th>Fecha Ingreso</th>
                     <th>Fecha entrega</th>
                     <th style="width: 20%">Nombre Cliente</th>
+                    <th>Estado servicio</th>
+                    <th>Estado pago</th>
                     <th>Nombre proyecto</th>
+                    <th>Saldo a pagar</th>
 
                      
                   </tfoot>
@@ -171,26 +177,43 @@ else {
                     <p>Total: S/  <input type="numer" class="form-control" name="costo_desarrollo" id="costo_desarrollo" maxlength="50" ></p>
                   <br>
                   </div>
-
+                  </div>
+                  </div>
+                  </div>
                  <!-- <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
                         <p>A Cuenta S/ <input type="numer" class="form-control" name="cuota" id="cuota" maxlength="50"></p>
                       </div> -->
                       <!-- <div class="form-group col-lg-4 col-md-6 col-sm-6 col-xs-12">
                       <p>Saldo S/ <input type="numer" class="form-control" name="saldo" id="saldo" maxlength="50" readonly></p>
                       </div> -->
+                      <div id="livia">
                       <div class="form-group col-lg-4 col-md-2 col-sm-2 col-xs-1" >
                       
                          <label>Integrantes:</label>
                          <div class="col-lg-12 " style="display: flex; align-items: center"> 
                        <select id="idintegrant_desarrollo" name="idintegrant_desarrollo" class="form-control selectpicker" data-live-search="true" data-style="btn-default" title="Integrantes">
-                       
+                
                        </select>
                          <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;">
                       </div>
+                      </div>
                       </div> 
-                </div>
-                </div>
-                </div>
+                       <div class="modal-body" id="totalIntegrantes" >
+                      <div class="col-lg-6">
+                        <table id="mostrarintegrantes">
+                          <!-- Cabecera 4 datos -->
+                          <tr>
+                            <th>Nombre </th>
+                           
+                          </tr>
+                        </table>
+                        <div> <br><br></div>
+                    </div>
+</div> 
+                      
+                
+                
+               
 
                 <div class="col-lg-12 form-inline">
 </div>
@@ -198,11 +221,14 @@ else {
 <div class="contenido-ventana">
 <span class="cerrarVentana" onclick="cierraVentanitaEmergente()">X</span>
 <h3 class="titulo-ventana" >Ingrese a los integantes para este proyecto:</h3>
-<table>
+<table  id="integrantes">
     <tr>
       <th>Nombre</th>
-      <th ><input type="text" name="integrantes1" id="integrantes1"></th>
+      </tr>
+    <tr>
+    <td ><input type="text" name="integrantes1" id="integrantes1"></td>
     </tr>
+    
    <!-- <tr>
        <th>Nombre</th>
       <th ><input type="text" name="integrantes2" id="integrantes2"></th>

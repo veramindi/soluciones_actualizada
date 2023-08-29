@@ -73,7 +73,89 @@ if($_SESSION['servicio']==1)
                </div><!-- /.col -->
            </div><!-- /.row -->
        </section><!-- /.content -->
+       <button id="addButton">Agregar Integrante</button>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <label for="name">Nombre del Integrante:</label>
+            <input type="text" id="name" />
+            <button id="submit">Agregar</button>
+        </div>
+    </div>
+    <table id="memberTable">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody id="memberList">
+        </tbody>
+    </table>
+    <script >const addButton = document.getElementById("addButton");
+const modal = document.getElementById("modal");
+const closeModal = document.querySelector(".close");
+const submitButton = document.getElementById("submit");
+const nameInput = document.getElementById("name");
+const memberList = document.getElementById("memberList");
 
+addButton.addEventListener("click", () => {
+    modal.style.display = "block";
+});
+
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+submitButton.addEventListener("click", () => {
+    const name = nameInput.value;
+    if (name) {
+        const newRow = document.createElement("tr");
+        const newNameCell = document.createElement("td");
+        newNameCell.textContent = name;
+        newRow.appendChild(newNameCell);
+        memberList.appendChild(newRow);
+        nameInput.value = "";
+        modal.style.display = "none";
+    }
+});
+</script>
+    <style>.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: white;
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+}
+
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 300px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+</style>
      </div><!-- /.content-wrapper -->
    <!--Fin-Contenido-->
 

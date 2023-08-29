@@ -91,7 +91,34 @@ function vizualizarVentana(iddesarrollo) {
   }
   
   //Variable para almacenar el ultimo saldo
-  var ultimoSaldo = 0;
+  var ultimoSaldo = 0; 
+  function mostrarintegrantes(iddesarrollo) {
+    $.ajax({
+      url: "../ajax/desarrollo-soporte.php?op=mostrarIntegrantes&iddesarrollo=" + iddesarrollo,
+      type: "POST",
+      dataType: "json",
+      success: function(data) {
+        $('#mostrarintegrantes').empty(); // limpiar la tabla antes de agregar nuevas filas
+        
+        var filaCabecera = '<tr>' +
+          '<th>Nombre &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;"></th>' +
+          '<th>';
+        $('#mostrarintegrantes').append(filaCabecera);
+        
+        for (var i = 0; i < data.length; i++) {
+          var fila = '<tr class="fila">' +
+              '<td>' + data[i].nombre_integrantes + '</td>' +
+              '</tr>';
+          $('#mostrarintegrantes').append(fila);
+        }      
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log("Error en la petición AJAX: " + textStatus + " - " + errorThrown);
+        console.log(jqXHR.responseText);
+      }
+    });
+}
+
   //aqui
   function mostrarPagos(iddesarrollo) {
     //console.log("Hola mostrarPagos")
@@ -292,7 +319,10 @@ function mostrarform(flag)
   $("#colorin").show();
   $("#invisible").show();
   $("#formu").show();
+  $("#livia").show();
     $("#cuotasdepago").hide();
+    $("#totalIntegrantes").hide();
+
   limpiar();
   if(flag)
   {
@@ -378,8 +408,56 @@ function guardaryeditar(e)
   );
   limpiar();
 }
-//variable para almacenar el valor del total
 var total=0;
+function edit(iddesarrollo)
+{
+  console.log(iddesarrollo)
+ $.post("../ajax/desarrollo-soporte.php?op=edit",{iddesarrollo:iddesarrollo}, function(data,status)
+{
+    data=JSON.parse(data);
+    mostrarform(true);
+
+    $("#idcliente").hide();
+    $("#idcliente").val(data.nombre);//😂
+    $("#idcliente").html('<option selected="selected">' + data.nombre + '</option>');
+    $("#idcliente").selectpicker('refresh');
+    
+    $("#idintegrant_desarrollo").val(data.nombre_integrantes);
+    $("#idintegrant_desarrollo").selectpicker('refresh');//😂
+    
+    $("#colorin").hide();
+    $("#invisible").hide();
+    $("#formu").hide();
+
+    $("#num_documento").val(data.num_documento);
+    $("#num_documento").prop("readonly", true);//para que no se pueda editar
+    $("#direccioncliente").val(data.direccion);
+    $("#direccioncliente").prop("readonly", true);//para que no se pueda editar
+
+    $("#telefono").val(data.telefono);
+    $("#telefono").prop("readonly", true);//para que no se pueda editar
+
+    $("#estado_servicio").val(data.estado_servicio);
+    $("#estado_pago").val(data.estado_pago);
+    $("#estado_entrega").val(data.estado_entrega);
+    $("#iddesarrollo").val(data.iddesarrollo);
+    
+    $("#costo_desarrollo").val(data.costo_desarrollo);
+    total=$("#costo_desarrollo").val();
+    $("#nombre_proyecto").val(data.nombre_proyecto);//😂
+    $("#cuotasdepago").hide();
+    $("#totalIntegrantes").show();
+    $("#fecha").val(data.fecha);
+    $("#iddet_pag_desarrollo").val(data.iddet_pag_desarrollo);
+    //$("#idtecnico").val(data.nombre);
+
+
+})
+
+
+}
+//variable para almacenar el valor del total
+
 function mostrar(iddesarrollo)
 {
   console.log(iddesarrollo)
@@ -396,7 +474,7 @@ function mostrar(iddesarrollo)
     $("#colorin").hide();
     $("#invisible").hide();
     $("#formu").hide();
-
+    $("#livia").hide();
     $("#idintegrant_desarrollo").val(data.nombre_integrantes);
     $("#idintegrant_desarrollo").selectpicker('refresh');//😂
 
@@ -417,6 +495,8 @@ function mostrar(iddesarrollo)
     total=$("#costo_desarrollo").val();
     $("#nombre_proyecto").val(data.nombre_proyecto);//😂
     $("#cuotasdepago").show();
+    $("#totalIntegrantes").hide();
+
     $("#fecha").val(data.fecha);
     $("#iddet_pag_desarrollo").val(data.iddet_pag_desarrollo);
     //$("#idtecnico").val(data.nombre);

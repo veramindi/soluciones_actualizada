@@ -79,6 +79,13 @@ switch ($_GET["op"]){
       echo json_encode($rspta);
       
     break;
+    case 'edit':
+      $rspta=$desarrollo->edit($iddesarrollo);
+     
+      //codificar el resultado usando json
+      echo json_encode($rspta);
+      
+    break;
 
   
     case 'selectCliente':
@@ -124,12 +131,16 @@ switch ($_GET["op"]){
       {
         $data[]=array(
           "0" => '<a class="btn btn-warning" href="../vistas/proceso_desarrollo.php?iddesarrollo='.$reg->iddesarrollo.'"><i class="fa fa-edit"></i></a>'.
+          ' <a class="btn btn-danger" onclick="edit('.$reg->iddesarrollo.')"><i class="fa fa-edit"></i></a>'.
             ' <button class="btn btn-success" onclick="mostrar('.$reg->iddesarrollo.')"><i class="fa fa-credit-card"></i></button>',
 
           "1"=>$reg->fecha_ingreso,
           "2"=>$reg->fecha_ingreso,              
           "3"=>$reg->nombre,
-          "4"=>$reg->nombre_proyecto
+          "4"=>$reg->estado_servicio,
+          "5"=>$reg->estado_pago,
+          "6"=>$reg->nombre_proyecto,
+          "7"=>$reg->costo_desarrollo
         );
       }
       $results= array(
@@ -156,6 +167,29 @@ while ($reg=$rspta->fetch_object()){
         "2"=>$reg->saldo,
         "3"=>$reg->tipo_pago,
         "4"=>$reg->iddet_pag_desarrollo
+    );
+}
+
+$results = array(
+  "sEcho"=>1, //Información para el datatables
+  "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+  "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+  "aaData"=>$data);
+echo json_encode($results);
+  break;
+
+case 'mostrarIntegrantes':
+  $iddesarrollo = $_REQUEST["iddesarrollo"];
+  $rspta=$desarrollo->mostrarIntegrantes($iddesarrollo);
+ // var_dump($rspta); // Imprimir el objeto para verificar que haya datos
+    //Vamos a declarar un array
+    //console.log($rspta);
+$data= Array();
+
+while ($reg=$rspta->fetch_object()){
+    $data[]=array(
+        "0"=>$reg->nombre_integrantes,
+        "1"=>$reg->iddet_pag_desarrollo
     );
 }
 

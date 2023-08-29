@@ -54,7 +54,12 @@ public function insertarIntegrantes($iddesarrollo,$nombre_integrantes) {
         $sql="SELECT iddesarrollo,fecha,monto,saldo,tipo_pago,iddet_pag_desarrollo FROM det_pag_desarrollo WHERE iddesarrollo='$iddesarrollo'";
         return ejecutarConsulta($sql);
       }
-
+      function mostrarIntegrantes($iddesarrollo) {
+        $sql = "SELECT iddesarrollo, nombre_integrantes, idintegrant_desarrollo FROM integrantes_desarrollo WHERE iddesarrollo = '$iddesarrollo'";
+        return ejecutarConsulta($sql);
+    }
+    
+   
    
       //Implementamos un metodo para mostrar los datos de un registro a modificar
     public function mostrar($iddesarrollo)
@@ -68,11 +73,21 @@ public function insertarIntegrantes($iddesarrollo,$nombre_integrantes) {
       return ejecutarConsultaSimpleFila($sql);
 
     }
+    public function edit($iddesarrollo)
+    {
+      $sql = "SELECT d.iddesarrollo,d.estado_servicio, d.estado_entrega,d.estado_pago,d.costo_desarrollo,p.nombre,p.num_documento,p.telefono,p.direccion, d.nombre_proyecto, dp.fecha,dp.monto, dp.saldo, dp.tipo_pago
+      FROM desarrollo d
+      LEFT JOIN persona p ON d.idcliente = p.idpersona
+      LEFT JOIN det_pag_desarrollo dp ON d.iddesarrollo = dp.iddesarrollo
+      WHERE d.iddesarrollo ='$iddesarrollo'";
+      //echo $sql;
+      return ejecutarConsultaSimpleFila($sql);
 
+    }
     //Implementar metodo para listar los registros
     public function listar()
     {
-      $sql="SELECT d.iddesarrollo, DATE_FORMAT(d.fecha_ingreso, '%d-%m-%Y') AS fecha_ingreso, 
+      $sql="SELECT d.iddesarrollo,d.estado_servicio,d.estado_pago,d.costo_desarrollo, DATE_FORMAT(d.fecha_ingreso, '%d-%m-%Y') AS fecha_ingreso, 
       d.nombre_proyecto, p.nombre
       FROM desarrollo d
       LEFT JOIN persona p ON d.idcliente = p.idpersona
