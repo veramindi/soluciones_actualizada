@@ -97,10 +97,7 @@ select {
                <div class="col-md-12">
                    <div class="box box-primary">
                    <div class="box-header with-border">
-               <h1 class="box-title"> Proceso de Desarrollo&nbsp;&nbsp;&nbsp;&nbsp;<button id="agregarservicio" class="btn-pyramid bg-accent-focus h-10 w-44 rounded-xl text-lg text-base-100 font-semibold shadow-xl hover:scale-105"
-                 onclick="mostrarform(true)">
-                 <i class="fa fa-plus-circle"></i> &nbsp;&nbsp;Nuevo Registro</button></h1>
-
+               <h1 class="box-title"> Proceso de Desarrollo</h1>
                  <div class="box-tools pull-right">
                  </div>
                </div>

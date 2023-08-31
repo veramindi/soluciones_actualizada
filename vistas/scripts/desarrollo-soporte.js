@@ -8,6 +8,7 @@ function init() {
   
   $("#formulario").on("submit",function(e){
     guardaryeditar(e);
+   
   })
  
   $("#consultaSunat").hide();
@@ -325,13 +326,12 @@ function vizualizarVentana(iddesarrollo) {
 function mostrarform(flag)
 {
 
-  $("#idcliente").show();
   $("#colorin").show();
   $("#invisible").show();
   $("#formu").show();
   $("#loqui").hide();
-
   $("#integran").show();
+
     $("#cuotasdepago").hide();
     $("#totalIntegrantes").hide();
 
@@ -444,12 +444,8 @@ function edit(iddesarrollo)
     $("#loqui").hide();
 
     $("#num_documento").val(data.num_documento);
-    $("#num_documento").prop("readonly", true);//para que no se pueda editar
     $("#direccioncliente").val(data.direccion);
-    $("#direccioncliente").prop("readonly", true);//para que no se pueda editar
-
     $("#telefono").val(data.telefono);
-    $("#telefono").prop("readonly", true);//para que no se pueda editar
 
     $("#estado_servicio").val(data.estado_servicio);
     $("#estado_pago").val(data.estado_pago);
@@ -480,8 +476,7 @@ function mostrar(iddesarrollo)
     data=JSON.parse(data);
     mostrarform(true);
 
-    $("#idcliente").hide();
-    $("#idcliente").val(data.nombre);//😂
+  
     $("#idcliente").html('<option selected="selected">' + data.nombre + '</option>');
     $("#idcliente").selectpicker('refresh');
     
@@ -494,18 +489,14 @@ function mostrar(iddesarrollo)
     $("#idintegrant_desarrollo").selectpicker('refresh');//😂
 
     $("#num_documento").val(data.num_documento);
-    $("#num_documento").prop("readonly", true);//para que no se pueda editar
     $("#direccioncliente").val(data.direccion);
-    $("#direccioncliente").prop("readonly", true);//para que no se pueda editar
-
     $("#telefono").val(data.telefono);
-    $("#telefono").prop("readonly", true);//para que no se pueda editar
-
+  
     $("#estado_servicio").val(data.estado_servicio);
     $("#estado_pago").val(data.estado_pago);
     $("#estado_entrega").val(data.estado_entrega);
     $("#iddesarrollo").val(data.iddesarrollo);
-    
+    $("#saldoRes").val(data.costo_desarrollo);
     $("#costo_desarrollo").val(data.costo_desarrollo);
     total=$("#costo_desarrollo").val();
     $("#nombre_proyecto").val(data.nombre_proyecto);//😂
@@ -518,8 +509,8 @@ function mostrar(iddesarrollo)
 
 
 })
-mostrarPagos(iddesarrollo);
 
+mostrarPagos(iddesarrollo);
 
 }
 
@@ -549,6 +540,7 @@ function costoServicio(){
     if (ultimoSaldo >0) {
       saldo = ultimoSaldo - monto;
       $("#saldo").val(saldo);
+      
     } else {
       saldo = total - monto;
       $("#saldo").val(saldo);
@@ -558,6 +550,7 @@ function costoServicio(){
       $("#estado_pago").val("Pagado");
     }
   }
+  
 
 
 init();

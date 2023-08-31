@@ -134,10 +134,9 @@ switch ($_GET["op"]){
       while($reg=$rspta->fetch_object())
       {
         $data[]=array(
-          "0" => '<a class="btn btn-warning" href="../vistas/proceso_desarrollo.php?iddesarrollo='.$reg->iddesarrollo.'"><i class="fa fa-edit"></i></a>'.
+          "0" => '<a class="btn btn-info" href="../vistas/proceso_desarrollo.php?iddesarrollo='.$reg->iddesarrollo.'"><i class="fa fa-exchange"></i></a>'.
           ' <a class="btn btn-danger" onclick="edit('.$reg->iddesarrollo.')"><i class="fa fa-edit"></i></a>'.
-            ' <button class="btn btn-success" onclick="mostrar('.$reg->iddesarrollo.')"><i class="fa fa-credit-card"></i></button>',
-
+            ' <button class="btn btn-success" onclick="mostrar('.$reg->iddesarrollo.')"><i class="fa fa-cart-plus"></i></button>',
           "1"=>$reg->fecha_ingreso,
           "2"=>$reg->fecha_ingreso,              
           "3"=>$reg->nombre,

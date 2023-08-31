@@ -85,15 +85,15 @@ else {
                           <div id="invisible">
             <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12">
             <label>Nº : documento</label>
-            <input type="text" class="form-control" name="num_documento" id="num_documento" placeholder="Numero de documento">
+            <input type="text" class="form-control" name="num_documento" id="num_documento" placeholder="Numero de documento" readonly>
              </div>  
                 <div class="form-group col-lg-3 col-md-2 col-sm-2 col-xs-12 "> 
                     <label>Dirección:</label>
-                    <input type="text" class="form-control" name="direccioncliente" id="direccioncliente"  placeholder="Direccion">
+                    <input type="text" class="form-control" name="direccioncliente" id="direccioncliente"  placeholder="Direccion" readonly>
                   </div>
                   <div class="form-group col-lg-3 col-md-2 col-sm-2 col-xs-12"> 
                     <label>Teléfono:</label>
-                    <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono">
+                    <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" readonly>
                   </div>
                   </div>
                  
@@ -103,8 +103,8 @@ else {
                   </div>
                   <div id="loqui">
                   <div class="form-group col-lg-2 col-md-2 col-sm-2 col-xs-12 "> 
-                    <label>Cuotas Restantes:</label>
-                    <input type="text" class="form-control" name="saldo" id="saldo"  readonly>
+                    <label>Costo Servicio:</label>
+                    <input type="text" class="form-control" name="saldoRes" id="saldoRes"  readonly>
                   </div>
                   </div>
                   </div>
@@ -198,7 +198,7 @@ else {
                       
                          <label>Integrantes:</label>
                          <div class="col-lg-12 " style="display: flex; align-items: center"> 
-                         <button>Agregar Integrantes</button>
+                         <button type="button">Agregar Integrantes</button>
                        <input type="button" onclick="vizualizarVentana()" value="+" id="btnagregarInter" style="margin-left: 5px;">
                        </select>
                          
