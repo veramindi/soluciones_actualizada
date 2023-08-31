@@ -33,7 +33,7 @@ Class Desarrollo
       estado_entrega='$estado_entrega',
       estado_pago='$estado_pago',
       nombre_proyecto='$nombre_proyecto',
-      costo_desarrollo='$costo_desarrollo',
+      costo_desarrollo='$costo_desarrollo'
       WHERE iddesarrollo='$iddesarrollo'";
       return ejecutarConsulta($sql);
       //var_dump($iddesarrollo);
