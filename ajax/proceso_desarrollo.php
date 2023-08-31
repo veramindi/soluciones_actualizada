@@ -31,16 +31,21 @@ $MAN_estado = isset($_POST['MAN_estado']) ? limpiarCadena($_POST['MAN_estado']) 
 $MAN_comentario = isset($_POST['MAN_comentario']) ? limpiarCadena($_POST['MAN_comentario']) : "";
 
 switch ($_GET['op']) {
-    case 'editar': 
-        $rspta = $proceso->editar(
-            $idproc_desarrollo,
-            $AN_fecha_inicio, $AN_fecha_termino, $AN_estado, $AN_comentario, 
-            $DI_fecha_inicio, $DI_fecha_termino, $DI_estado, $DI_comentario, 
-            $DE_fecha_inicio, $DE_fecha_termino, $DE_estado, $DE_comentario, 
-            $IM_fecha_inicio, $IM_fecha_termino, $IM_estado, $IM_comentario, 
-            $MAN_fecha_inicio, $MAN_fecha_termino, $MAN_estado, $MAN_comentario
-        );
-        echo $rspta ? "Actualizado con éxito!" : "No se pudo actualizar";
+    case 'guardaryeditar': 
+        if (empty($idproc_desarrollo)){
+            $rspta = $proceso -> insertar($idproc_desarrollo,$AN_fecha_inicio,$AN_fecha_termino,$AN_estado,$AN_comentario,$DI_fecha_inicio,$DI_fecha_termino,$DI_estado,$DI_comentario,$DE_fecha_inicio,$DE_fecha_termino,$DE_estado,$DE_comentario,$IM_fecha_inicio,$IM_fecha_termino,$IM_estado,$IM_comentario,$MAN_fecha_inicio,$MAN_fecha_termino,$MAN_estado,$MAN_comentario);
+            echo $rspta ? "Datos almacenados" : "Alo salio mal";
+        } else {
+            $rspta = $proceso->editar(
+                $idproc_desarrollo,
+                $AN_fecha_inicio, $AN_fecha_termino, $AN_estado, $AN_comentario, 
+                $DI_fecha_inicio, $DI_fecha_termino, $DI_estado, $DI_comentario, 
+                $DE_fecha_inicio, $DE_fecha_termino, $DE_estado, $DE_comentario, 
+                $IM_fecha_inicio, $IM_fecha_termino, $IM_estado, $IM_comentario, 
+                $MAN_fecha_inicio, $MAN_fecha_termino, $MAN_estado, $MAN_comentario
+            );
+            echo $rspta ? "Actualizado con éxito!" : "No se pudo actualizar";
+        }
         break;
 }
 ?>

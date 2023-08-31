@@ -150,7 +150,7 @@ function agregaryeditar(e){
 		
 		var formData = new FormData($("#formulario")[0]);
 		$.ajax({
-			url:'../ajax/proceso_desarrollo.php?op=editar',
+			url:'../ajax/proceso_desarrollo.php?op=guardaryeditar',
 			type:"POST",
 			data:formData,
 			contentType: false,
