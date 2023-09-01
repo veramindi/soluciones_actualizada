@@ -4,10 +4,10 @@ require "../config/Conexion.php";
 		public function __construct(){
 
 		}
-                public function insertar($AN_fecha_inicio,$AN_fecha_termino,$AN_estado,$AN_comentario,$DI_fecha_inicio,$DI_fecha_termino,$DI_estado,$DI_comentario,$DE_fecha_inicio,$DE_fecha_termino,$DE_estado,$DE_comentario,$IM_fecha_inicio,$IM_fecha_termino,$IM_estado,$IM_comentario,$MAN_fecha_inicio,$MAN_fecha_termino,$MAN_estado,$MAN_comentario) {
-                        $sql = "INSERT INTO proceso_desarrollo aqui todos los campos de la tabla proceso_desarrollo VALUES ('$idproc_desarrollo','$AN_fecha_inicio','$AN_fecha_termino','$AN_estado','$AN_comentario','$DI_fecha_inicio','$DI_fecha_termino','$DI_estado','$DI_comentario','$DE_fecha_inicio','$DE_fecha_termino','$DE_estado','$DE_comentario','$IM_fecha_inicio','$IM_fecha_termino','$IM_estado','$IM_comentario','$MAN_fecha_inicio','$MAN_fecha_termino','$MAN_estado','$MAN_comentario')";
+                public function insertar($iddesarrollo,$AN_fecha_inicio, $AN_fecha_termino, $AN_estado, $AN_comentario, $DI_fecha_inicio, $DI_fecha_termino, $DI_estado, $DI_comentario, $DE_fecha_inicio, $DE_fecha_termino, $DE_estado, $DE_comentario, $IM_fecha_inicio, $IM_fecha_termino, $IM_estado, $IM_comentario, $MAN_fecha_inicio, $MAN_fecha_termino, $MAN_estado, $MAN_comentario) {
+                        $sql = "INSERT INTO proceso_desarrollo (iddesarrollo,AN_fecha_inicio, AN_fecha_termino, AN_estado, AN_comentario, DI_fecha_inicio, DI_fecha_termino, DI_estado, DI_comentario, DE_fecha_inicio, DE_fecha_termino, DE_estado, DE_comentario, IM_fecha_inicio, IM_fecha_termino, IM_estado, IM_comentario, MAN_fecha_inicio, MAN_fecha_termino, MAN_estado, MAN_comentario) VALUES ('$iddesarrollo','$AN_fecha_inicio', '$AN_fecha_termino', '$AN_estado', '$AN_comentario', '$DI_fecha_inicio', '$DI_fecha_termino', '$DI_estado', '$DI_comentario', '$DE_fecha_inicio', '$DE_fecha_termino', '$DE_estado', '$DE_comentario', '$IM_fecha_inicio', '$IM_fecha_termino', '$IM_estado', '$IM_comentario', '$MAN_fecha_inicio', '$MAN_fecha_termino', '$MAN_estado', '$MAN_comentario')";
                         return ejecutarConsulta($sql);
-                }
+                    }
 		public function editar($idproc_desarrollo,$AN_fecha_inicio,$AN_fecha_termino,$AN_estado,$AN_comentario,$DI_fecha_inicio,$DI_fecha_termino,$DI_estado,$DI_comentario,$DE_fecha_inicio,$DE_fecha_termino,$DE_estado,$DE_comentario,$IM_fecha_inicio,$IM_fecha_termino,$IM_estado,$IM_comentario,$MAN_fecha_inicio,$MAN_fecha_termino,$MAN_estado,$MAN_comentario) {
 			$sql = "UPDATE proceso_desarrollo SET 
 						AN_fecha_inicio='$AN_fecha_inicio',
@@ -40,7 +40,7 @@ require "../config/Conexion.php";
                                 FROM proceso_desarrollo pd
                                 INNER JOIN desarrollo d ON pd.iddesarrollo = d.iddesarrollo
                                 INNER JOIN persona p ON d.idcliente = p.idpersona
-                                 WHERE pd.idproc_desarrollo='$iddesarrollo'";
+                                 WHERE d.iddesarrollo='$iddesarrollo'";
                         return ejecutarConsulta($sql);
 
                     }
